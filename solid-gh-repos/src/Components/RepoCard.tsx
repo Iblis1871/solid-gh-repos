@@ -7,8 +7,12 @@ export type Repo = {
     name: string
     description: string
     stargazers_count: string
+    language: string
+    license: {
+        name: string
+    } 
     owner: {
-        login:string
+        login: string
     }
 }
 
@@ -19,6 +23,7 @@ interface Props {
 const saveRepo = (repo: Repo) => {
     setSavedRepos([repo, ...savedRepos()])
     localStorage.setItem(`savedRepos`, JSON.stringify(savedRepos()))
+    console.log(repo)
 }
 
 const unsaveRepo = (repoId: string) => {
@@ -41,6 +46,7 @@ const RepoCard: Component<Props> = ({repo}) => {
                  <strong>{repo.owner?.login}</strong>/{repo.name}
                 </a>
                 <p class='card-text'>{repo.description}</p>
+                <p class='card-text'>{repo.language}</p>
 
                 {repoIsSaved(repo.id) ? 
                     (
