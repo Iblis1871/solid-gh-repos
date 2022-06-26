@@ -1,0 +1,40 @@
+import { Component } from 'solid-js';
+import { setSavedRepos, savedRepos } from './Pages/SaveRepos';
+
+export type Repo = {
+    id: string
+    html_url: string
+    name: string
+    description: string
+    stargazers_count: string
+    owner: {
+        login:string
+    }
+}
+
+interface Props {
+    repo: Repo
+}
+
+const saveRepo = (repo: Repo) => {
+    setSavedRepos([repo, ...savedRepos()])
+
+}
+
+const RepoCard: Component<Props> = ({repo}) => {
+    return (
+        <div class='card'>
+            <div class='card-header'>&#11088; Stars: {repo.stargazers_count}</div>
+            <div class='card-body'>
+                <a href={repo.html_url} class='h4 card-title text-decoration-none' target='_blank' rel='noreferer'>
+                 <strong>{repo.owner?.login}</strong>/{repo.name}
+                </a>
+                <p class='card-text'>{repo.description}</p>
+                <button class='btn btn-success'> Save </button>
+            </div>
+        </div>
+
+    )
+}
+
+export default RepoCard;
